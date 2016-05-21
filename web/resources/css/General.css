@@ -1,0 +1,161 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23/04/2016, 07:10:28 PM
+    Author     : Stein
+*/
+
+body {
+    text-align: center;
+}
+
+#contenedor {
+    background: gainsboro;
+    min-width: 500px;
+    max-width: 1000px;
+    margin: 0 auto;
+    max-height: 1300px;
+    min-height: 700px
+}
+#cabecera {
+    height: 100px;
+    background: orangered;
+    
+}
+/*#navegador {
+    text-decoration:none;
+    height: 30px;
+}*/
+#contenido {
+    float: left;
+    width: 100%;
+}
+#contenido #principal {
+    max-height: 1100px;
+    min-height: 600px;
+    float: left;
+    background: peru;
+    width: 80%;
+}
+
+#secundario ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 150px;
+}
+
+#secundario li a {
+    display: block;
+    color: #000;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+#secundario li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+
+#pie {
+    height: 80px;
+    background: firebrick;
+    
+    clear: both;
+}
+
+
+#navegador{   
+  padding: 10px 20px 30px;
+  
+  height: 30px;
+  text-align: end;
+  background: #555;
+}
+#navegador ul{
+    text-decoration:none;
+    text-align: left;
+  display: inline;
+  margin: 0;
+    //padding: 0;
+  //padding: 10px 4px 15px 0;
+  list-style-type:  none;
+  //-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  //-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  //box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  
+}
+#navegador li{
+   //font: bold 12px/18px sans-serif;
+   
+  display: inline-block;
+  margin-right: -4px;
+  //position: relative;
+  padding: 15px 30px;
+  background: whitesmoke;
+  cursor: pointer;
+  //-webkit-transition: all 0.2s;
+  //-moz-transition: all 0.2s;
+  //-ms-transition: all 0.2s;
+  //-o-transition: all 0.2s;
+  //transition: all 0.2s;
+}
+
+#navegador ul :hover{
+   background: #555;
+  color: #FFC;
+}
+A:link {text-decoration:none}
+A:visited {text-decoration:none}
+
+#menuList {
+  margin: 0px;
+  padding: 2px;
+  line-height:0px;
+  width:14em; /* Es necesario aportar anchura al menú para limitar el ancho de los botones */
+}
+
+#menuList li {
+  display: block; /* De este modo los elementos del menú se mostrán como bloques uno debajo de otro y hasta el ancho del menú */
+  margin: 2px;
+  padding: 0;
+  list-style: none;
+}
+
+#menuList li a, #menuList1 li a:focus {
+  display: block;
+  border: 1px solid #0000FF;
+  margin: 0;
+  text-decoration: none;
+  font-family: Verdana,Arial,Helvetica;
+  font-size: 12px;
+  font-weight:bold;
+  padding: 15px;/* Cuanto mayor sea el espaciado, mas grande será el area del botón. */
+}
+
+#menuList li a:hover {
+  background-color: #003399;
+  color: #FFC
+C00;
+}
+#navegador #navegadorBusqueda{
+    text-align: start;
+    float: left;
+    width: 50%;
+}
+
+#navegador #navegadorBotones{
+    float: left;
+    width: 50%;
+}
+
+link {
+    font-size: 15px;
+}
+
+

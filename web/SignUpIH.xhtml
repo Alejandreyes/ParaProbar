@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    
+    <body>
+
+        <ui:composition template="./Plantillas/Principal.xhtml">
+
+            <ui:define name="content">
+                
+                          <p:growl id="mensajes" showDetail="true" life="10000" />
+        <h:form class="form-horizontal">
+            <p:panel header="Registrarse" style="width:500px">
+                <h:panelGrid columns="2" cellpadding="5">
+                    
+                    <h:outputLabel for="nombre" value="Nombre: " />
+                    <p:inputText value="#{mBUsuario.nombre}" id="nombre"
+                                 required="true" label="nombre" />
+                    
+                    <h:outputLabel for="apellidos" value="Apellidos: " />
+                    <p:inputText value="#{mBUsuario.apellidos}" id="apellidos"
+                                 required="true" label="apellidos" />
+                    
+                    <h:outputLabel for="correo" value="Correo: " />
+                    <p:inputText value="#{mBUsuario.correo}" id="correo"
+                                 required="true" label="correo" type="email"/>
+                    
+                    <h:outputLabel for="nombreUsuario" value="Nombre de Usuario: " />
+                    <p:inputText value="#{mBUsuario.nombreusuario}" id="nombreUsuario"
+                                 required="true" label="nombreUsuario" />
+                    
+                    <h:outputLabel for="pwd1" value="Contraseña: " />
+                    <p:password id="pwd1" value="#{mBUsuario.contrasenia}" match="pwd2" label="Password 1" required="true" feedback="true" />
+ 
+                    <h:outputLabel for="pwd2" value="Repetir Contraseña: " />
+                    <p:password id="pwd2" value="#{mBUsuario.contrasenia}" label="Password 2" required="true" />
+                                        
+                    <f:facet name="footer">
+                        <p:commandButton id="SignUp" value="Registrarse"  action="#{mBUsuario.signUp()}" update=":mensajes" />
+                    </f:facet>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+                
+                
+                
+                
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

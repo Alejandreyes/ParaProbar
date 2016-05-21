@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/05/2016 10:58:32 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Solicitar" table="solicitar" schema="public" optimistic-lock="version">
+        <id name="idsolicitud" type="int">
+            <column name="idsolicitud" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="objeto" class="Modelo.Objeto" fetch="select">
+            <column name="idlibro" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuarioByIdprestador" class="Modelo.Usuario" fetch="select">
+            <column name="idprestador" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuarioByIdconsumidor" class="Modelo.Usuario" fetch="select">
+            <column name="idconsumidor" not-null="true" />
+        </many-to-one>
+        <property name="fechasolicitud" type="date">
+            <column name="fechasolicitud" length="13" />
+        </property>
+        <property name="tiemposolicitado" type="int">
+            <column name="tiemposolicitado" not-null="true" />
+        </property>
+        <property name="medida" type="string">
+            <column name="medida" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

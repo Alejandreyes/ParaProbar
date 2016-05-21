@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    <body>
+
+        <ui:composition template="./Plantillas/Principal.xhtml">
+
+            <ui:define name="content">
+            <p:growl id="mensajes" showDetail="true" life="10000" />
+                
+        <h:form>
+            <p:panel header="Iniciar Sesión" style="width:500px">
+                <h:panelGrid columns="2" cellpadding="15">
+                    <h:outputLabel for="username" value="Usuario:" />
+                    <p:inputText value="#{mBUsuario.nombreusuario}" id="username"
+                                 required="true" label="username" />
+                    <h:outputLabel for="password" value="Contraseña:" />
+                    <p:password value="#{mBUsuario.contrasenia}" id="password" required="true"
+                                label="password" />
+                    <f:facet name="footer">
+                        <p:commandButton id="loginButton" value="Iniciar Sesión"  action="#{mBUsuario.valida()}" update=":mensajes" />
+                    </f:facet>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+        <br />
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

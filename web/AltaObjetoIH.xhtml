@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    <body>
+
+        <ui:composition template="./Plantillas/Principal.xhtml">
+
+            <ui:define name="content">
+                
+                <p:growl id="mensajes" showDetail="true" life="10000" />    
+                    
+                <h:form class="form-horizontal">
+                    <p:panel header="Alta Objeto" style="width:500px">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="nombreLibro" value="Nombre:" />
+                            <p:inputText value="#{mBObjeto.nombreLibro}" id="nombreLibroInput"
+                                         required="true" label="nombreLibro" >
+                                <f:validateLength minimum="2" />
+                            </p:inputText>
+
+                            <h:outputLabel for="autor" value="Autor:" />
+                            <p:inputText value="#{mBObjeto.autor}" id="autor"
+                                         required="true" label="autor" >
+                                <f:validateLength minimum="2" />
+                            </p:inputText>
+                            <h:outputLabel for="edicion" value="Edición:" />
+                            <p:inputText value="#{mBObjeto.edicion}" id="edicion"
+                                         label="edicion" />
+
+                            <h:outputLabel for="anio" value="Año:" />
+                            <p:inputText value="#{mBObjeto.anio}" id="anio"
+                                         label="anio" />
+
+                            <h:outputLabel for="genero" value="Genero:" />
+                            <p:inputText value="#{mBObjeto.genero}" id="genero"
+                                         label="genero" />
+
+                            <h:outputLabel for="sinopsis" value="Sinopsis" />
+                            <p:inputTextarea value="#{mBObjeto.sinopsis}" id="sinopsis"
+                                         label="sinopsis" />
+
+                            <h:outputLabel for="numPaginas" value="numPaginas" />
+                            <p:inputText value="#{mBObjeto.numPaginas}" id="numPaginas"
+                                         label="numPaginas" />
+                            <f:facet name="footer">
+                                <p:commandButton id="AltaObjetobtn" value="Alta Objeto"  action="#{mBObjeto.altaObjeto()}" update=":mensajes" />
+                            </f:facet>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+                
+                
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

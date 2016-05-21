@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/05/2016 10:58:32 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelo.Contacto" table="contacto" schema="public" optimistic-lock="version">
+        <composite-id name="id" class="Modelo.ContactoId">
+            <key-property name="idusuario" type="int">
+                <column name="idusuario" />
+            </key-property>
+            <key-property name="tipo" type="string">
+                <column name="tipo" length="15" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="usuario" class="Modelo.Usuario" update="false" insert="false" fetch="select">
+            <column name="idusuario" not-null="true" />
+        </many-to-one>
+        <property name="informacion" type="string">
+            <column name="informacion" length="30" />
+        </property>
+    </class>
+</hibernate-mapping>

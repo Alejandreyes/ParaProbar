@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="./css/General.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top" class="top">
+            <ui:insert name="top">
+                
+                               <div id="cabeza">
+                    
+                </div>
+                <div id="navegador">
+                    <div id="navegadorBusqueda">
+                        <h:form >
+                            <p:inputText style="font-family: monospace; font-size: 14pt; background-color: whitesmoke ;height: 35px;width: 500px" placeholder="Buscar" value="#{mBObjeto.buscarLibro}" id="nombreLibroInput"
+                                         required="true" label="nombreLibro" />
+                            <p:commandButton style="height: 48px; background-color: grey; " id="AltaObjetobtn" value="Buscar"  
+                                             action="#{mBObjeto.consultarObjeto()}"  />
+                        </h:form>
+
+                    </div>
+                    <div id="navegadorBotones">
+
+                        <h:form rendered="#{!aBCCPerfil.verificarSesion()}">
+
+                            <ul>
+                                <li><h:link  value="Baul" outcome="index"/></li>
+                                <li><h:link style="font-size: 14px;" value="Iniciar Sesión" outcome="SignInIH"/></li>               
+                                <li><h:link style="font-size: 14px;" value="Registrar" outcome="SignUpIH"/></li>
+                                
+                                
+                            </ul>
+
+                        </h:form>    
+
+                        <h:form rendered="#{aBCCPerfil.verificarSesion()}">
+
+                            <ul>
+                                <li><h:link  value="Baul" outcome="index"/></li>               
+                                <li><h:link  value="#{mBUsuario.nombreusuario}" outcome="ConsultarIH"/></li>               
+                                <li><h:link  value="Alta Libro" outcome="AltaObjetoIH"/></li>
+                                <li><h:commandLink  value="Salir" action="#{aBCCPerfil.salir()}"/> </li>
+                            </ul>
+                            
+                        </h:form>
+                    </div>
+
+
+
+                </div>
+            </ui:insert>
+        </div>
+        <div id="content" class="center_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

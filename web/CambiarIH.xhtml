@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"> 
+    <body>
+
+        <ui:composition template="./Plantillas/Perfil.xhtml">
+
+            <ui:define name="content">
+                
+                 <h:form>
+                <p:fileUpload fileUploadListener="#{mBSubeArchivo.upload}" mode="advanced"
+                     update="messages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+ 
+    <p:growl id="messages" showDetail="true" />
+</h:form>
+                
+                
+                <h:form>
+            <p:panel id="informacion" footer="Informacion actual del usuario " style=" border-width: 50px">
+                  <p:messages id="msgs" />
+                <h:panelGrid columns="3" cellpadding="4" style="border-collapse: separate;border-spacing: 20px" >
+                    <h:outputLabel for="nombre"  value="Nombre"/>
+                    <p:inputText id="nombre" placeholder="#{mBUsuario.nombre}" value="#{aBCCPerfil.nombre}"  label="Nombre">
+                       
+                    </p:inputText>
+                    <p:message for="nombre" display="icon" />
+                    <h:outputLabel for="apellido" value="Apellidos"/>
+                    <p:inputText id="apellido" placeholder="#{mBUsuario.apellidos}" value="#{aBCCPerfil.apellidos}"  label="Apellidos">
+                    </p:inputText>
+                    <p:message for="apellido" display="icon" />
+                    
+                    <h:outputLabel value="Correo electronico" />
+                    <p:inputText placeholder="#{mBUsuario.correo}" value="#{aBCCPerfil.correo}"/>   
+                    
+                </h:panelGrid>
+                  <p:commandButton value="Enviar" update="informacion" action="#{aBCCPerfil.actualizar()}"/> 
+            </p:panel>
+        </h:form> 
+                
+                
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

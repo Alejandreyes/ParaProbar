@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"> 
+    <body>
+
+        <ui:composition template="./Plantillas/Principal.xhtml">
+
+            <ui:define name="content">
+            <p:growl id="mensajes" showDetail="true" life="10000" />
+                
+        <h:form>            
+            <p:growl id="mensajes" showDetail="true" life="10000" />
+            
+
+     
+            <h2>#{mBObjeto.nombreLibro}</h2>
+
+             <table id="consultarObjtbl" style="margin: 0 35%;">                
+                <tr>
+                  <td><h:outputText  value="Autor: " /></td>
+                  <td><h:outputText id="autor" value="#{mBObjeto.autor}" /></td>                   
+                </tr>                
+                <tr>
+                  <td><h:outputText  value="Edicion: " /></td>
+                  <td><h:outputText id="edicion" value="#{mBObjeto.edicion}" /></td>                   
+                </tr>
+                <tr>
+                  <td><h:outputText  value="Año: " /></td>
+                  <td><h:outputText id="anio" value="#{mBObjeto.anio}" /></td>                   
+                </tr>
+                <tr>
+                  <td><h:outputText  value="Genero: " /></td>
+                  <td><h:outputText id="genero" value="#{mBObjeto.genero}" /></td>                   
+                </tr>                
+                <tr>
+                  <td><h:outputText  value="Numero de Páginas: " /></td>
+                  <td><h:outputText id="numPaginas" value="#{mBObjeto.numPaginas}" /></td>                   
+                </tr>
+                <tr>
+                  <td><h:outputText  value="Nombre Usuario: " /></td>
+                  <td><h:outputText id="nombreUsusario" value="#{mBObjeto.nombreUsuario}" /></td>                   
+                </tr>  
+                <tr>
+                  <td><h:outputText  value="Sinopsis: " /></td>
+                  <td><h:outputText id="sinopsis" value="#{mBObjeto.sinopsis}" /></td>                   
+                </tr>
+            </table>      
+        </h:form>
+        <br/>
+        <h:form   rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}"  >
+            <h:inputHidden id="nombreLibro" value="#{mBObjeto.nombreLibro}" />
+            <p:commandButton id="Bajaobj" value="Baja Objeto"  action="#{mBObjeto.bajaObjeto()}" update=":mensajes" />             
+        </h:form>
+        <br/>
+          
+        <h:form rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">
+            <br/>
+            
+            <h:inputHidden id="nombreLibro" value="#{mBObjeto.nombreLibro}"/>
+            <br/>
+            <h:outputText  value="Autor: " />
+            <p:inputText id="autor" value="#{mBObjeto.autor}"/>
+            <br/>
+            <h:outputText  value="Edicion: " />
+            <p:inputText id="edicion" value="#{mBObjeto.edicion}" />
+            <br/>   
+            <h:outputText  value="Año: " />
+            <p:inputText id="anio" value="#{mBObjeto.anio}" />
+            <br/>
+            <h:outputText  value="Genero: " />
+            <p:inputText id="genero" value="#{mBObjeto.genero}" />
+            <br/>
+            <h:outputText  value="Sinopsis: " />
+            <p:inputText id="sinopsis" value="#{mBObjeto.sinopsis}" />
+            <br/>
+            <h:outputText  value="Numero de Páginas: " />
+            <p:inputText id="numPaginas" value="#{mBObjeto.numPaginas}" />
+            <br/>                    
+            <p:commandButton id="AltaObjetobtn" value="Cambiar Objeto"  action="#{mBObjeto.cambiarObjeto()}" update=":mensajes" />
+        </h:form>
+        <br/>
+        <h:form rendered="#{aBCCPerfil.verificarSesion()}">
+            <h:inputHidden id="nombreLibro" value="#{mBObjeto.nombreLibro}" />
+            <p:commandButton id="solicitarPrestamo" value="Solicitar Prestamo"  action="#{mBObjeto.solicitarPrestamo()}" update=":mensajes" />                                      
+        </h:form>
+        </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
