@@ -7,23 +7,17 @@ package MB;
 
 import Controlador.dao.ObjetoDao;
 import Controlador.dao.PrestarDao;
+import Controlador.dao.SolicitudDao;
 import Controlador.dao.UsuarioDao;
 import Modelo.Objeto;
-import Modelo.Prestamo;
+import Modelo.Solicitar;
 import Modelo.Usuario;
-import java.awt.BorderLayout;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -35,6 +29,7 @@ public class MBObjeto {
 
     @ManagedProperty(value="#{mBUsuario}")
     private MBUsuario mBUsuario;
+    int idlibro;
     String nombreLibro;
     String buscarLibro;
     String autor;
@@ -47,19 +42,15 @@ public class MBObjeto {
     String resultado;
     private String usuarioIniciado;
 
-    /*public StreamedContent getGraphicImage() {
-         try {
-            prepararImagen();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(MBImagen.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return graphicImage;
-    }*/
+    public int getIdlibro() {
+        return idlibro;
+    }
 
-   /* public void setGraphicImage(StreamedContent graphicImage) {
-        this.graphicImage = graphicImage;
-    }*/
+    public void setIdlibro(int idlibro) {
+        this.idlibro = idlibro;
+    }
     
+   
     List<Objeto> objetos = new ArrayList<Objeto>();
     public MBObjeto() {
     }
@@ -170,12 +161,9 @@ public class MBObjeto {
         obj.setGenero(genero);
         obj.setSinopsis(sinopsis);
         obj.setNumpaginas(numPaginas);
-        UsuarioDao usrd = new UsuarioDao();
-        Usuario usr = usrd.Buscar(us.getIdusuario());
-        obj.setUsuario(usr);
+        obj.setUsuario(us);
         obj.setIdlibro(obj.hashCode());
         ObjetoDao objd = new ObjetoDao();
-           System.out.println(obj);
         objd.Guardar(obj);
         return "index?faces-redirect=true";
     }
@@ -202,19 +190,17 @@ public class MBObjeto {
         System.out.println("-------------->");
         Objeto obj;// = new Objeto();
         ObjetoDao objd = new ObjetoDao();
-        int i = buscarLibro.hashCode()*13;
-        obj = objd.Buscar(i);
+        obj = objd.Buscar(idlibro);
         objd.Eliminar(obj);
         System.out.println("sisisisisi");
         return "index.xhtml";
     }
     public String cambiarObjeto(){
-        System.out.println("-.-.-.-243-4-->"+nombreLibro);
         Objeto obj;
         ObjetoDao objd = new ObjetoDao();
-        int i = buscarLibro.hashCode()*13;
-        obj = objd.Buscar(i);
-        obj.setNombrelibro(nombreLibro);
+        
+        System.out.println("-.-.-.-243-4-->"+idlibro);
+        obj = objd.Buscar(idlibro);
         obj.setAutor(autor);
         obj.setEdicion(edicion);
         obj.setAnio(anio);
@@ -222,7 +208,7 @@ public class MBObjeto {
         obj.setSinopsis(sinopsis);
         obj.setNumpaginas(numPaginas);
         objd.Actualizar(obj);
-        return "index.xhtml";
+        return "index.xhtml?faces-redirect=true";
     }
     public List<Objeto> getAllObjetos(){
         ObjetoDao dao=new ObjetoDao();
@@ -230,33 +216,24 @@ public class MBObjeto {
     }
     
     public String solicitarPrestamo(){
-        System.out.println("aquiiiiiiiii " +nombreLibro);
         ObjetoDao objd = new ObjetoDao();
-        
-        int i = buscarLibro.hashCode()*13;
-        System.out.println(i);
-        Objeto obj = objd.Buscar(i);
-
-        System.out.println("Objetooooo "+obj.getNombrelibro());
+        Objeto obj = objd.Buscar(idlibro);
         Date date = new Date();
-        Prestamo prst = new Prestamo();
-        PrestarDao prstd = new PrestarDao();
-        
+        Solicitar prst = new Solicitar();
+        SolicitudDao prstd = new SolicitudDao();
         UsuarioDao usdao = new UsuarioDao();
         Usuario us1 = usdao.Buscar(mBUsuario.getIdUsuario()); //el de la sesion iniciada
-        
-        //System.out.println("|----------|------------|--------|--"); 
         System.out.println("nombUs: "+ us1.getNombreusuario() );
         System.out.println("Usuario:"+obj.getUsuario().getNombreusuario());
         System.out.println("NombLib"+obj.getNombrelibro());
-        
-        
-       
-        
         prst.setUsuarioByIdconsumidor(us1);
-        prst.setUsuarioByIdconsumidor(obj.getUsuario());
-        prst.setFechaprestamo(date);
-        
+        prst.setUsuarioByIdprestador(obj.getUsuario());
+        prst.setObjeto(obj);
+        prst.setFechasolicitud(date);
+        prst.setIdsolicitud(prst.hashCode());
+        // Solo son ejemplos ilustrativos
+        prst.setTiemposolicitado(3);
+        prst.setMedida("Dias");
         prstd.Guardar(prst);
         return "SolicitarPrestamoIH.xhtml";
     }
@@ -282,6 +259,8 @@ public class MBObjeto {
         return (da.disponible(obj))? "Disponible" : "Prestado" ;
     }
     public String consultarObjeto(Objeto obj){
+        System.out.println(obj);
+        idlibro = obj.getIdlibro();
         nombreLibro = obj.getNombrelibro();
         autor = obj.getAutor();
         edicion = obj.getEdicion();
@@ -290,7 +269,7 @@ public class MBObjeto {
         sinopsis = obj.getSinopsis();
         numPaginas = obj.getNumpaginas();
         nombreUsuario = obj.getUsuario().getNombreusuario();
-        return "ConsultaObjetoIH.xhtml?faces-redirect=true";
+        return "ConsultaObjetoIH.xhtml";
     }
 
 

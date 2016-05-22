@@ -21,19 +21,21 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @SessionScoped
 public class MBUsuario {
+
     private int idUsuario;
-     private String nombreusuario;
-     private String contrasenia;
-     private String nombre;
-     private String apellidos;
-     private String correo;
+    private String nombreusuario;
+    private String contrasenia;
+    private String nombre;
+    private String apellidos;
+    private String correo;
+
     public MBUsuario() {
     }
 
     public String getNombreusuario() {
         return nombreusuario;
     }
-    
+
     public void setNombreusuario(String nombreusuario) {
         this.nombreusuario = nombreusuario;
     }
@@ -69,33 +71,62 @@ public class MBUsuario {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-      public String valida() {
-          try{
-              UsuarioDao user = new UsuarioDao();
-        //List<Usuario> listUser = user.findAll();
-        List<Usuario> listUser = user.findSome(nombreusuario, contrasenia);
-        Usuario tmp;
 
-        for (Usuario tmpUser : listUser) {
-            if (nombreusuario != null && nombreusuario.equals(tmpUser.getNombreusuario()) && contrasenia != null && contrasenia.equals(tmpUser.getContrasenia())) {
-                tmp = tmpUser;
-                this.setIdUsuario(tmp.getIdusuario());
-                this.setNombre(tmp.getNombre());
-                this.setApellidos(tmp.getApellidos());
-                this.setCorreo(tmp.getCorreo());
-                return "index?faces-redirect=true";
-            } 
+    /*public String valida() {
+     try{
+     UsuarioDao user = new UsuarioDao();
+     //List<Usuario> listUser = user.findAll();
+     List<Usuario> listUser = user.findSome(nombreusuario, contrasenia);
+     Usuario tmp;
 
-        }
+     for (Usuario tmpUser : listUser) {
+     if (nombreusuario != null && nombreusuario.equals(tmpUser.getNombreusuario()) && contrasenia != null && contrasenia.equals(tmpUser.getContrasenia())) {
+     tmp = tmpUser;
+     this.setIdUsuario(tmp.getIdusuario());
+     this.setNombre(tmp.getNombre());
+     this.setApellidos(tmp.getApellidos());
+     this.setCorreo(tmp.getCorreo());
+     return "index?faces-redirect=true";
+     } 
+
+     }
               
               
-          }catch (DataAccessLayerException e){
-              FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_WARN, "Registro invalido", "Nombre de usuario o contraseña incorrectos"));
+     }catch (DataAccessLayerException e){
+     FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_WARN, "Registro invalido", "Nombre de usuario o contraseña incorrectos"));
             
-          }
+     }
         
-        return "SignInIH";
+     return "SignInIH";
+     }*/
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String valida() {
+        UsuarioDao user = new UsuarioDao();
+        
+        Usuario tmp = new Usuario();
+        tmp.setNombreusuario(nombreusuario);
+        tmp=user.Buscar(tmp.hashCode());
+        System.out.println(tmp);
+        if (tmp != null){
+            if (nombreusuario != null && nombreusuario.equals(tmp.getNombreusuario()) && contrasenia != null && contrasenia.equals(tmp.getContrasenia())) {
+            this.setIdUsuario(tmp.getIdusuario());
+            this.setNombre(tmp.getNombre());
+            this.setApellidos(tmp.getApellidos());
+            this.setCorreo(tmp.getCorreo());
+            return "index?faces-redirect=true";
+        }else {
+            return "SignInIH";
+        }
+        }
+            return "SignInIH";
+        
     }
 
     public String salir() {
@@ -106,31 +137,22 @@ public class MBUsuario {
         correo = null;
         return "index?faces-redirect=true";
     }
-    public String signUp(){
-        try{
-             
-            Usuario temp = new Usuario(idUsuario,nombreusuario, contrasenia, nombre, apellidos, correo);
+
+    public String signUp() {
+        try {
+
+            Usuario temp = new Usuario(idUsuario, nombreusuario, contrasenia, nombre, apellidos, correo);
             idUsuario = temp.hashCode();
             temp.setIdusuario(idUsuario);
-            UsuarioDao dao= new UsuarioDao();
-        dao.Guardar(temp);
-        return "index?faces-redirect=true";
-            
-        }catch(DataAccessLayerException e){
-            FacesContext.getCurrentInstance().addMessage(null,  new FacesMessage(FacesMessage.SEVERITY_WARN, "Registro invalido", "Nombre de usuario ya exite en la base"));
-            
+            UsuarioDao dao = new UsuarioDao();
+            dao.Guardar(temp);
+            return "index?faces-redirect=true";
+
+        } catch (DataAccessLayerException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Registro invalido", "Nombre de usuario ya exite en la base"));
+
         }
         return "SignUpIH";
     }
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-   
-    
 }

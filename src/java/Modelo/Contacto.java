@@ -9,30 +9,11 @@ package Modelo;
 public class Contacto  implements java.io.Serializable {
 
 
-     private ContactoId id;
      private Usuario usuario;
+     private String tipo;
      private String informacion;
 
     public Contacto() {
-    }
-
-	
-    public Contacto(ContactoId id, Usuario usuario) {
-        this.id = id;
-        this.usuario = usuario;
-    }
-    public Contacto(ContactoId id, Usuario usuario, String informacion) {
-       this.id = id;
-       this.usuario = usuario;
-       this.informacion = informacion;
-    }
-   
-    public ContactoId getId() {
-        return this.id;
-    }
-    
-    public void setId(ContactoId id) {
-        this.id = id;
     }
     public Usuario getUsuario() {
         return this.usuario;
@@ -49,7 +30,15 @@ public class Contacto  implements java.io.Serializable {
         this.informacion = informacion;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    
 
 
 }

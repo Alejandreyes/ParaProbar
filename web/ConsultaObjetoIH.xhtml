@@ -53,7 +53,7 @@
         </h:form>
         <br/>
         <h:form   rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}"  >
-            <h:inputHidden id="nombreLibro" value="#{mBObjeto.nombreLibro}" />
+            <h:inputHidden id="idlibro" value="#{mBObjeto.idlibro}" />
             <p:commandButton id="Bajaobj" value="Baja Objeto"  action="#{mBObjeto.bajaObjeto()}" update=":mensajes" />             
         </h:form>
         <br/>
@@ -61,7 +61,7 @@
         <h:form rendered="#{aBCCPerfil.mBUsuario.nombreusuario == mBObjeto.nombreUsuario}">
             <br/>
             
-            <h:inputHidden id="nombreLibro" value="#{mBObjeto.nombreLibro}"/>
+            <h:inputHidden id="idlibro" value="#{mBObjeto.idlibro}"/>
             <br/>
             <h:outputText  value="Autor: " />
             <p:inputText id="autor" value="#{mBObjeto.autor}"/>
@@ -85,7 +85,7 @@
         </h:form>
         <br/>
         <h:form rendered="#{aBCCPerfil.verificarSesion()}">
-            <h:inputHidden id="nombreLibro" value="#{mBObjeto.nombreLibro}" />
+            <h:inputHidden id="idibro" value="#{mBObjeto.idlibro}" />
             <p:commandButton id="solicitarPrestamo" value="Solicitar Prestamo"  action="#{mBObjeto.solicitarPrestamo()}" update=":mensajes" />                                      
         </h:form>
         </ui:define>

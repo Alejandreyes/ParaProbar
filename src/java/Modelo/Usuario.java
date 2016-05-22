@@ -17,12 +17,7 @@ public class Usuario  implements java.io.Serializable {
      private String nombre;
      private String apellidos;
      private String correo;
-     private Set solicitarsForIdprestador = new HashSet(0);
-     private Set prestamosForIdconsumidor = new HashSet(0);
-     private Set solicitarsForIdconsumidor = new HashSet(0);
-     private Set contactos = new HashSet(0);
-     private Set objetos = new HashSet(0);
-     private Set prestamosForIdprestador = new HashSet(0);
+     
 
     public Usuario() {
     }
@@ -41,20 +36,7 @@ public class Usuario  implements java.io.Serializable {
         this.idusuario = idusuario;
         this.nombreusuario = nombreusuario;
     }
-    public Usuario(int idusuario, String nombreusuario, String contrasenia, String nombre, String apellidos, String correo, Set solicitarsForIdprestador, Set prestamosForIdconsumidor, Set solicitarsForIdconsumidor, Set contactos, Set objetos, Set prestamosForIdprestador) {
-       this.idusuario = idusuario;
-       this.nombreusuario = nombreusuario;
-       this.contrasenia = contrasenia;
-       this.nombre = nombre;
-       this.apellidos = apellidos;
-       this.correo = correo;
-       this.solicitarsForIdprestador = solicitarsForIdprestador;
-       this.prestamosForIdconsumidor = prestamosForIdconsumidor;
-       this.solicitarsForIdconsumidor = solicitarsForIdconsumidor;
-       this.contactos = contactos;
-       this.objetos = objetos;
-       this.prestamosForIdprestador = prestamosForIdprestador;
-    }
+   
    
     public int getIdusuario() {
         return this.idusuario;
@@ -98,52 +80,15 @@ public class Usuario  implements java.io.Serializable {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    public Set getSolicitarsForIdprestador() {
-        return this.solicitarsForIdprestador;
-    }
     
-    public void setSolicitarsForIdprestador(Set solicitarsForIdprestador) {
-        this.solicitarsForIdprestador = solicitarsForIdprestador;
-    }
-    public Set getPrestamosForIdconsumidor() {
-        return this.prestamosForIdconsumidor;
-    }
-    
-    public void setPrestamosForIdconsumidor(Set prestamosForIdconsumidor) {
-        this.prestamosForIdconsumidor = prestamosForIdconsumidor;
-    }
-    public Set getSolicitarsForIdconsumidor() {
-        return this.solicitarsForIdconsumidor;
-    }
-    
-    public void setSolicitarsForIdconsumidor(Set solicitarsForIdconsumidor) {
-        this.solicitarsForIdconsumidor = solicitarsForIdconsumidor;
-    }
-    public Set getContactos() {
-        return this.contactos;
-    }
-    
-    public void setContactos(Set contactos) {
-        this.contactos = contactos;
-    }
-    public Set getObjetos() {
-        return this.objetos;
-    }
-    
-    public void setObjetos(Set objetos) {
-        this.objetos = objetos;
-    }
-    public Set getPrestamosForIdprestador() {
-        return this.prestamosForIdprestador;
-    }
-    
-    public void setPrestamosForIdprestador(Set prestamosForIdprestador) {
-        this.prestamosForIdprestador = prestamosForIdprestador;
-    }
-
     @Override
     public int hashCode() {
         return (nombreusuario.hashCode() + 17) * 31; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String toString() {
+        return nombreusuario; //To change body of generated methods, choose Tools | Templates.
     }
     
 
