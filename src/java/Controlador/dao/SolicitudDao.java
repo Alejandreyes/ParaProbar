@@ -6,22 +6,26 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SolicitudDao extends AbstractDao{
     
-    public Solicitar Buscar(int idPrestamo) throws DataAccessLayerException {
-        Solicitar returnValue = null;
+    public Solicitar Buscar(int idSolicitud) throws DataAccessLayerException {
+        Solicitar returnValue = new Solicitar();
         try {
             this.conectar();
             Connection con =this.getConexion();
             PreparedStatement consulta = con.prepareStatement("Select * from Solicitar where idsolicitud = ?");
-            consulta.setInt(1, idPrestamo);
+            consulta.setInt(1, idSolicitud);
             ResultSet rs = consulta.executeQuery();
             
             if (rs.next()){
-                returnValue.setIdsolicitud(idPrestamo);
+                System.out.println(idSolicitud);
+                returnValue.setIdsolicitud(idSolicitud);
                 UsuarioDao usdao= new UsuarioDao();
                 ObjetoDao objdao= new ObjetoDao();
+                //returnValue.setIdsolicitud(rs.getInt("idsolicitud"));
                 returnValue.setUsuarioByIdconsumidor(usdao.Buscar(rs.getInt("idprestador")));
                 returnValue.setUsuarioByIdprestador(usdao.Buscar(rs.getInt("idconsumidor")));
                 returnValue.setObjeto(objdao.Buscar(rs.getInt("idlibro")));
@@ -56,7 +60,7 @@ public class SolicitudDao extends AbstractDao{
         try {
             this.conectar();
             Connection con =this.getConexion();
-            PreparedStatement consulta = con.prepareStatement("delete from Prestamo where idsolicitud = ?");
+            PreparedStatement consulta = con.prepareStatement("delete from solicitar where idsolicitud = ?");
             consulta.setInt(1, o.getIdsolicitud());
             consulta.executeUpdate();
         } catch (SQLException ex) {
@@ -87,5 +91,37 @@ public class SolicitudDao extends AbstractDao{
             desconectar();
         }
     }
+    public List<Solicitar> obtenerSolicitudes(int idlibro) throws DataAccessLayerException{        
+        List<Solicitar> lstSolicitudes = new ArrayList<Solicitar>(); 
+        try {
+            this.conectar();
+            Connection con = this.getConexion();
+            PreparedStatement consulta = con.prepareStatement("Select * from solicitar s where s.idlibro = ?;");
+            consulta.setInt(1, idlibro);
+            ResultSet rs = consulta.executeQuery();
+            
+            while (rs.next()){
+                Solicitar returnValue = new Solicitar();                
+                UsuarioDao usdao= new UsuarioDao();
+                ObjetoDao objdao= new ObjetoDao();
+                returnValue.setIdsolicitud(rs.getInt("idsolicitud"));
+                returnValue.setUsuarioByIdconsumidor(usdao.Buscar(rs.getInt("idprestador")));
+                returnValue.setUsuarioByIdprestador(usdao.Buscar(rs.getInt("idconsumidor")));
+                returnValue.setObjeto(objdao.Buscar(rs.getInt("idlibro")));
+                returnValue.setFechasolicitud(rs.getDate("fechasolicitud"));
+                returnValue.setTiemposolicitado(rs.getInt("tiemposolicitado"));
+                returnValue.setMedida(rs.getString("medida"));       
+                System.out.println(rs.getInt("idsolicitud"));
+                lstSolicitudes.add(returnValue);                       
+            }
+        } catch (SQLException ex) {
+            throw new DataAccessLayerException (ex);
+        }finally {
+            desconectar();
+        }
+        return lstSolicitudes;
+    }
     
 }
+    
+

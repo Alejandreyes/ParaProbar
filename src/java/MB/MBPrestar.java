@@ -7,10 +7,15 @@ package MB;
 
 import Controlador.dao.ObjetoDao;
 import Controlador.dao.PrestarDao;
+import Controlador.dao.SolicitudDao;
 import Controlador.dao.UsuarioDao;
 import Modelo.Objeto;
 import Modelo.Prestamo;
+import Modelo.Solicitar;
 import Modelo.Usuario;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -20,7 +25,7 @@ import javax.faces.bean.RequestScoped;
  *
  * @author Stein
  */
-@ManagedBean
+@ManagedBean (name="mBPrestar")
 @RequestScoped
 public class MBPrestar {
 
@@ -111,27 +116,46 @@ public class MBPrestar {
     public void setUs(Usuario us) {
         this.us = us;
     }
-
+    public void aceptarPrestamo(int idSolicitud){
+        System.out.println("Entro a aceptar");
+        SolicitudDao sltDao = new SolicitudDao();                      
+        Prestamo prstm = new Prestamo();
+        Date date = new Date();
+        
+        Solicitar slt = sltDao.Buscar(idSolicitud);        
+        Objeto obj = slt.getObjeto();
+ 
+        prstm.setObjeto(obj);
+        prstm.setUsuarioByIdprestador(slt.getUsuarioByIdprestador());
+        prstm.setUsuarioByIdconsumidor(slt.getUsuarioByIdconsumidor());        
+        prstm.setFechaprestamo(date);
+        prstm.setIdprestamo(prstm.hashCode());
+        
+        PrestarDao prstDao = new PrestarDao();
+        prstDao.Guardar(prstm);
+        
+        sltDao.Eliminar(slt);
+    }
+    public void rechazarPrestamo(int idSolicitud){
+        System.out.println("Entro a rechazar");
+        SolicitudDao sltDao = new SolicitudDao();  
+        Solicitar slt = sltDao.Buscar(idSolicitud);
+        sltDao.Eliminar(slt);
+    }
     public void solicitarPrestamo(){
-        //System.out.println("aquiiiiiiiii " +nombreObjeto);
         ObjetoDao objd = new ObjetoDao();
         
         int i = nombreObjeto.hashCode()*13;
         Objeto obj = objd.Buscar(i);
         objeto = obj;
-        System.out.println("Objetooooo "+objeto.getNombrelibro());
+        
         Date date = new Date();
         Prestamo prst = new Prestamo();
         PrestarDao prstd = new PrestarDao();
         
         UsuarioDao usdao = new UsuarioDao();
         Usuario us1 = usdao.Buscar(mBUsuario.getIdUsuario()); //el de la sesion iniciada
-        
-        System.out.println("|----------|------------|--------|--"); 
-        System.out.println("nombUs: "+ us1.getNombreusuario() );
-        System.out.println("Usuario:"+objeto.getUsuario().getNombreusuario());
-        System.out.println("NombLib"+objeto.getNombrelibro());
-  
+
         prst.setUsuarioByIdconsumidor(us1);
         prst.setUsuarioByIdprestador(obj.getUsuario());
         prst.setFechaprestamo(date);

@@ -169,8 +169,7 @@ public class MBObjeto {
     }
     public String consultarObjeto(){
          //Usuario us= new Usuario(mBUsuario.getNombreusuario(), mBUsuario.getContrasenia(), mBUsuario.getNombre(),mBUsuario.getApellidos(),mBUsuario.getCorreo() );
-        ObjetoDao objd = new ObjetoDao();
-        //System.out.println(buscarLibro);
+        ObjetoDao objd = new ObjetoDao();        
         int i = buscarLibro.hashCode()*13;
         Objeto obj = objd.Buscar(i);
         
@@ -182,24 +181,20 @@ public class MBObjeto {
         sinopsis = obj.getSinopsis();
         numPaginas = obj.getNumpaginas();
         nombreUsuario = obj.getUsuario().getNombreusuario();
-        //nombreLibro = obj.getNombrelibro();
-        //System.out.println(obj);
+        //nombreLibro = obj.getNombrelibro();        
         return "ConsultaObjetoIH.xhtml";
     }
-    public String bajaObjeto(){
-        System.out.println("-------------->");
+    public String bajaObjeto(){        
         Objeto obj;// = new Objeto();
         ObjetoDao objd = new ObjetoDao();
         obj = objd.Buscar(idlibro);
-        objd.Eliminar(obj);
-        System.out.println("sisisisisi");
+        objd.Eliminar(obj);       
         return "index.xhtml";
     }
     public String cambiarObjeto(){
         Objeto obj;
         ObjetoDao objd = new ObjetoDao();
-        
-        System.out.println("-.-.-.-243-4-->"+idlibro);
+
         obj = objd.Buscar(idlibro);
         obj.setAutor(autor);
         obj.setEdicion(edicion);
@@ -223,9 +218,6 @@ public class MBObjeto {
         SolicitudDao prstd = new SolicitudDao();
         UsuarioDao usdao = new UsuarioDao();
         Usuario us1 = usdao.Buscar(mBUsuario.getIdUsuario()); //el de la sesion iniciada
-        System.out.println("nombUs: "+ us1.getNombreusuario() );
-        System.out.println("Usuario:"+obj.getUsuario().getNombreusuario());
-        System.out.println("NombLib"+obj.getNombrelibro());
         prst.setUsuarioByIdconsumidor(us1);
         prst.setUsuarioByIdprestador(obj.getUsuario());
         prst.setObjeto(obj);
@@ -236,6 +228,11 @@ public class MBObjeto {
         prst.setMedida("Dias");
         prstd.Guardar(prst);
         return "SolicitarPrestamoIH.xhtml";
+    }
+    public List<Solicitar> verSolicitudes(){
+         SolicitudDao sltdao = new SolicitudDao();         
+         List<Solicitar> lsts = sltdao.obtenerSolicitudes(idlibro);
+         return lsts;
     }
 
     /**
@@ -258,8 +255,7 @@ public class MBObjeto {
         PrestarDao da=new PrestarDao();
         return (da.disponible(obj))? "Disponible" : "Prestado" ;
     }
-    public String consultarObjeto(Objeto obj){
-        System.out.println(obj);
+    public String consultarObjeto(Objeto obj){        
         idlibro = obj.getIdlibro();
         nombreLibro = obj.getNombrelibro();
         autor = obj.getAutor();
