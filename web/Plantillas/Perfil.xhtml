@@ -65,7 +65,13 @@
         <div>
             <div id="left">
                 <ui:insert name="left">
-                    <h:graphicImage width="150px" url="../resources/Imagenes/anonimo.gif"/>
+                     <p:graphicImage id="imagenPerfil" 
+                                rendered="#{mBSubirFotoPerfil.ruta != null }"
+                                value="../resources/Imagenes/FotosPerfil/#{mBSubirFotoPerfil.ruta}" 
+                                height="130px" width="150px"/>
+                <h:graphicImage rendered="#{mBSubirFotoPerfil.ruta == null}"
+                                height="130px" width="150px" 
+                                url="../resources/Imagenes/FotosPerfil/anonimo.gif"/>
                     <br/>
                     <div id="secundario">
                         

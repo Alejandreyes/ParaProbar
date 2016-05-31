@@ -45,7 +45,7 @@
         <br/>                
         <br/>
         <h:form rendered="#{aBCCPerfil.verificarSesion()}">
-            <h:inputHidden id="idibro" value="#{mBObjeto.idlibro}" />
+            <h:inputHidden id="idibro" value="#{mBObjeto.idlibro}"/>
             <p:commandButton id="solicitarPrestamo" value="Solicitar Prestamo"  action="#{mBObjeto.solicitarPrestamo()}" update=":mensajes" />                                      
         </h:form>
         <br/>       

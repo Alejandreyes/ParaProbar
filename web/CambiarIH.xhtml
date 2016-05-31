@@ -9,40 +9,61 @@
 
         <ui:composition template="./Plantillas/Perfil.xhtml">
 
+            <ui:define name="left">
+                <p:graphicImage id="imagenPerfil" 
+                                rendered="#{mBSubirFotoPerfil.ruta != null }"
+                                value="../resources/Imagenes/FotosPerfil/#{mBSubirFotoPerfil.ruta}" 
+                                height="130px" width="150px"/>
+                <h:graphicImage rendered="#{mBSubirFotoPerfil.ruta == null}"
+                                height="130px" width="150px" 
+                                url="../resources/Imagenes/FotosPerfil/anonimo.gif"/>
+                
+                <br/>
+                <div id="secundario">
+                    <ul>
+                        <li><h:link value="Cambiar información" outcome="CambiarIH"/></li>
+                        <li><h:link value="Consultar información" outcome="ConsultarIH"/></li>
+                        <li><h:link value="Borrar información" outcome="BajaIH"/></li>
+                    </ul>
+                </div>
+            </ui:define>
+
             <ui:define name="content">
-                
-                 <h:form>
-                <p:fileUpload fileUploadListener="#{mBSubeArchivo.upload}" mode="advanced"
-                     update="messages" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
- 
-    <p:growl id="messages" showDetail="true" />
-</h:form>
-                
-                
+
+                <h:form class="form-horizontal">
+                    <p:panel>
+                        <p:fileUpload required="true" fileUploadListener="#{mBSubirFotoPerfil.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                                      cancelLabel="Cancelar" uploadLabel="Cambiar foto perfil" label="Escoger Foto Perfil"
+                                      update=":imagenPerfil" sizeLimit="100000"  fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                    </p:panel>
+
+                </h:form>
+
+
                 <h:form>
-            <p:panel id="informacion" footer="Informacion actual del usuario " style=" border-width: 50px">
-                  <p:messages id="msgs" />
-                <h:panelGrid columns="3" cellpadding="4" style="border-collapse: separate;border-spacing: 20px" >
-                    <h:outputLabel for="nombre"  value="Nombre"/>
-                    <p:inputText id="nombre" placeholder="#{mBUsuario.nombre}" value="#{aBCCPerfil.nombre}"  label="Nombre">
-                       
-                    </p:inputText>
-                    <p:message for="nombre" display="icon" />
-                    <h:outputLabel for="apellido" value="Apellidos"/>
-                    <p:inputText id="apellido" placeholder="#{mBUsuario.apellidos}" value="#{aBCCPerfil.apellidos}"  label="Apellidos">
-                    </p:inputText>
-                    <p:message for="apellido" display="icon" />
-                    
-                    <h:outputLabel value="Correo electronico" />
-                    <p:inputText placeholder="#{mBUsuario.correo}" value="#{aBCCPerfil.correo}"/>   
-                    
-                </h:panelGrid>
-                  <p:commandButton value="Enviar" update="informacion" action="#{aBCCPerfil.actualizar()}"/> 
-            </p:panel>
-        </h:form> 
-                
-                
-                
+                    <p:panel id="informacion" footer="Informacion actual del usuario " style=" border-width: 50px">
+                        <p:messages id="msgs" />
+                        <h:panelGrid columns="3" cellpadding="4" style="border-collapse: separate;border-spacing: 20px" >
+                            <h:outputLabel for="nombre"  value="Nombre"/>
+                            <p:inputText id="nombre" placeholder="#{mBUsuario.nombre}" value="#{aBCCPerfil.nombre}"  label="Nombre">
+
+                            </p:inputText>
+                            <p:message for="nombre" display="icon" />
+                            <h:outputLabel for="apellido" value="Apellidos"/>
+                            <p:inputText id="apellido" placeholder="#{mBUsuario.apellidos}" value="#{aBCCPerfil.apellidos}"  label="Apellidos">
+                            </p:inputText>
+                            <p:message for="apellido" display="icon" />
+
+                            <h:outputLabel value="Correo electronico" />
+                            <p:inputText placeholder="#{mBUsuario.correo}" value="#{aBCCPerfil.correo}"/>   
+
+                        </h:panelGrid>
+                        <p:commandButton value="Enviar" update="informacion" action="#{aBCCPerfil.actualizar()}"/> 
+                    </p:panel>
+                </h:form> 
+
+
+
             </ui:define>
 
         </ui:composition>

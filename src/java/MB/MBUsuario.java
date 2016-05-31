@@ -8,7 +8,6 @@ package MB;
 import Controlador.dao.DataAccessLayerException;
 import Controlador.dao.UsuarioDao;
 import Modelo.Usuario;
-import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
